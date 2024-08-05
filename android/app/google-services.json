@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "822770971465",
+    "project_id": "syncr-mwr",
+    "storage_bucket": "syncr-mwr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822770971465:android:f156fd8a736934188ee098",
+        "android_client_info": {
+          "package_name": "com.jishnupsamal.swiftly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO7JjiE0hjxHFneZzBuiwlEQdca0xYhF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
