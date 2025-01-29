@@ -1,4 +1,4 @@
-package com.example.swiftly
+package com.jishnupsamal.swiftly
 
 import io.flutter.embedding.android.FlutterActivity
 
