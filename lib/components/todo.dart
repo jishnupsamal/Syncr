@@ -1,58 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swiftly/providers/todo_provider.dart';
 
-class TodoList extends StatefulWidget {
+class TodoList extends ConsumerStatefulWidget {
   const TodoList({super.key});
 
-  final List<String> todos = const [
-    'Buy milk',
-    'Make the bed',
-    'Do laundry',
-    'Go to the gym'
-  ];
-
   @override
-  State<TodoList> createState() => _TodoListState();
+  ConsumerState<TodoList> createState() => _TodoListState();
 }
 
-class _TodoListState extends State<TodoList> {
-  late List<bool> _isSelectedList;
-
-  @override
-  void initState() {
-    super.initState();
-    _isSelectedList = List.filled(widget.todos.length, false);
-  }
-
+class _TodoListState extends ConsumerState<TodoList> {
   @override
   Widget build(BuildContext context) {
+    final allTodos = ref.watch(todoNotifierProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Todo List')),
       body: ListView.builder(
-        itemCount: widget.todos.length,
+        itemCount: allTodos.length,
         itemBuilder: (context, index) {
-          bool isChecked = _isSelectedList[index];
-
+          bool isChecked = allTodos[index].isCompleted;
           return Container(
             margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: CheckboxListTile(
               title: Text(
-                widget.todos[index],
+                allTodos[index].title,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
-                  decoration: isChecked ? TextDecoration.lineThrough : null, // ✅ Strike-through if checked
-                  color: isChecked ? Colors.grey : Colors.black, // ✅ Text color change
+                  decoration: isChecked ? TextDecoration.lineThrough : null,
+                  color: isChecked ? Colors.grey : Colors.black,
                 ),
               ),
               value: isChecked,
               onChanged: (bool? value) {
-                setState(() {
-                  _isSelectedList[index] = value ?? false;
-                });
+                if (value != null) {
+                  ref
+                      .read(todoNotifierProvider.notifier)
+                      .completedTodo(allTodos[index]);
+                }
               },
-              activeColor: Colors.green, // ✅ Checkbox color
+              activeColor: Colors.teal, // ✅ Checkbox color
               checkColor: Colors.white,
-              controlAffinity: ListTileControlAffinity.leading, // ✅ Checkbox on the left
+              controlAffinity:
+                  ListTileControlAffinity.leading, // ✅ Checkbox on the left
             ),
           );
         },

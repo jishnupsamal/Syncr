@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:swiftly/components/todo.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swiftly/pages/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const 
+  ProviderScope(
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,33 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const App(),
-    );
-  }
-}
-
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-            title: const Text('Swiftly'),
-            backgroundColor: Colors.teal),
-        body: TodoList(),
-        floatingActionButton: IconButton.filled(
-            icon: Icon(
-              Icons.add,
-              size: 40
-            ),
-            onPressed: () {
-              print('Button Pressed');
-            },
-            style: ButtonStyle(backgroundColor: WidgetStatePropertyAll<Color>(Colors.teal)),
-      ),
-    )
+      home: const Home(),
     );
   }
 }
